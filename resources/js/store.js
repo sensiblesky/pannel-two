@@ -1,5 +1,5 @@
 export default () => ({
-  isDarkModeEnabled: Alpine.$persist(false).as("_x_darkMode_on"),
+  isDarkModeEnabled: Alpine.$persist(true).as("_x_darkMode_on"),
   isMonochromeModeEnabled: false,
   isSearchbarActive: false,
   isSidebarExpanded: false,
