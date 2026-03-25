@@ -49,10 +49,18 @@
         <!-- Sidebar -->
         <div class="sidebar print:hidden">
             <!-- Main Sidebar -->
-            <x-app-partials.main-sidebar></x-app-partials.main-sidebar>
+            @if (auth()->check() && auth()->user()->role === 'agent')
+                <x-app-partials.agent-sidebar></x-app-partials.agent-sidebar>
+            @else
+                <x-app-partials.main-sidebar></x-app-partials.main-sidebar>
+            @endif
 
             <!-- Sidebar Panel -->
-            <x-app-partials.sidebar-panel></x-app-partials.sidebar-panel>
+            @if (auth()->check() && auth()->user()->role === 'agent')
+                <x-app-partials.agent-sidebar-panel></x-app-partials.agent-sidebar-panel>
+            @else
+                <x-app-partials.sidebar-panel></x-app-partials.sidebar-panel>
+            @endif
         </div>
 
         <!-- App Header -->

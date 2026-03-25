@@ -114,7 +114,6 @@
                                     <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Code</th>
                                     <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Location</th>
                                     <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Users</th>
-                                    <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Customers</th>
                                     <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Status</th>
                                     <th class="whitespace-nowrap rounded-tr-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Action</th>
                                 </tr>
@@ -146,9 +145,6 @@
                                         </td>
                                         <td class="whitespace-nowrap px-4 py-3 sm:px-5">
                                             <div class="badge rounded-full bg-info/10 text-info dark:bg-info/15">{{ $branch->users_count }}</div>
-                                        </td>
-                                        <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                                            <div class="badge rounded-full bg-warning/10 text-warning dark:bg-warning/15">{{ $branch->customers_count }}</div>
                                         </td>
                                         <td class="whitespace-nowrap px-4 py-3 sm:px-5">
                                             @if ($branch->status)

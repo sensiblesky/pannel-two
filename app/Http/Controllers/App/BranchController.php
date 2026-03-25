@@ -26,7 +26,7 @@ class BranchController extends Controller
             $query->where('status', $request->input('status'));
         }
 
-        $branches = $query->withCount(['users', 'customers'])->latest()->paginate(20)->withQueryString();
+        $branches = $query->withCount(['users'])->latest()->paginate(20)->withQueryString();
 
         return view('app.branches.index', compact('branches'));
     }

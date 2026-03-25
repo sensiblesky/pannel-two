@@ -3,6 +3,7 @@
 namespace App\Http\View\Composers;
 
 use App\Main\SidebarPanel;
+use App\Main\AgentSidebarPanel;
 use Illuminate\View\View;
 
 class SidebarComposer
@@ -41,11 +42,21 @@ class SidebarComposer
                 case 'config':
                     $view->with('sidebarMenu', SidebarPanel::configuration());
                     break;
+                case 'tickets':
+                    $view->with('sidebarMenu', SidebarPanel::tickets());
+                    break;
+                case 'agent.tickets':
+                    $view->with('sidebarMenu', AgentSidebarPanel::tickets());
+                    break;
+                case 'dashboard':
+                case 'profile':
+                    $view->with('sidebarMenu', SidebarPanel::overview());
+                    break;
                 case 'dashboards':
                     $view->with('sidebarMenu', SidebarPanel::dashboards());
                     break;
                 default:
-                    $view->with('sidebarMenu', SidebarPanel::dashboards());
+                    $view->with('sidebarMenu', SidebarPanel::overview());
             }
             
             $view->with('allSidebarItems', SidebarPanel::all());

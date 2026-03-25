@@ -28,7 +28,8 @@
                             Edit User: {{ $user->name }}
                         </h2>
                     </div>
-                    <form method="POST" action="{{ route('users/update', $user) }}" class="space-y-4 p-4 sm:p-5">
+                    <form method="POST" action="{{ route('users/update', $user) }}" class="space-y-4 p-4 sm:p-5"
+                        x-data="{ role: '{{ old('role', $user->role) }}' }">
                         @csrf
                         @method('PUT')
 
@@ -90,11 +91,11 @@
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <label class="block">
                                 <span class="font-medium text-slate-600 dark:text-navy-100">Role</span>
-                                <select name="role"
+                                <select name="role" x-model="role"
                                     class="form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent @error('role') border-error @enderror">
-                                    <option value="customer" {{ old('role', $user->role) === 'customer' ? 'selected' : '' }}>Customer</option>
-                                    <option value="manager" {{ old('role', $user->role) === 'manager' ? 'selected' : '' }}>Manager</option>
-                                    <option value="admin" {{ old('role', $user->role) === 'admin' ? 'selected' : '' }}>Admin</option>
+                                    <option value="customer">Customer</option>
+                                    <option value="agent">Agent</option>
+                                    <option value="admin">Admin</option>
                                 </select>
                                 @error('role')
                                     <span class="text-tiny-plus text-error">{{ $message }}</span>
@@ -124,6 +125,76 @@
                                 @endforeach
                             </select>
                         </label>
+
+                        {{-- Customer-specific fields --}}
+                        <template x-if="role === 'customer'">
+                            <div class="space-y-4 rounded-lg border border-slate-200 p-4 dark:border-navy-500">
+                                <h3 class="text-base font-medium text-slate-700 dark:text-navy-100">Customer Details</h3>
+                                <label class="block">
+                                    <span class="font-medium text-slate-600 dark:text-navy-100">Company</span>
+                                    <input class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                                        placeholder="Company name" type="text" name="company" value="{{ old('company', $customerInfo->company ?? '') }}" />
+                                </label>
+                                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                    <label class="block">
+                                        <span class="font-medium text-slate-600 dark:text-navy-100">Country</span>
+                                        <input class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                                            placeholder="Country" type="text" name="country" value="{{ old('country', $customerInfo->country ?? '') }}" />
+                                    </label>
+                                    <label class="block">
+                                        <span class="font-medium text-slate-600 dark:text-navy-100">City</span>
+                                        <input class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                                            placeholder="City" type="text" name="city" value="{{ old('city', $customerInfo->city ?? '') }}" />
+                                    </label>
+                                </div>
+                                <label class="block">
+                                    <span class="font-medium text-slate-600 dark:text-navy-100">Notes</span>
+                                    <textarea name="customer_notes" rows="2"
+                                        class="form-textarea mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                                        placeholder="Additional notes about this customer...">{{ old('customer_notes', $customerInfo->notes ?? '') }}</textarea>
+                                </label>
+                            </div>
+                        </template>
+
+                        {{-- Agent-specific fields --}}
+                        <template x-if="role === 'agent'">
+                            <div class="space-y-4 rounded-lg border border-slate-200 p-4 dark:border-navy-500">
+                                <h3 class="text-base font-medium text-slate-700 dark:text-navy-100">Agent Details</h3>
+                                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                    <label class="block">
+                                        <span class="font-medium text-slate-600 dark:text-navy-100">Display Name</span>
+                                        <input class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                                            placeholder="Agent display name" type="text" name="display_name" value="{{ old('display_name', $agentInfo->display_name ?? '') }}" />
+                                    </label>
+                                    <label class="block">
+                                        <span class="font-medium text-slate-600 dark:text-navy-100">Specialization</span>
+                                        <input class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                                            placeholder="e.g. Technical Support, Billing" type="text" name="specialization" value="{{ old('specialization', $agentInfo->specialization ?? '') }}" />
+                                    </label>
+                                </div>
+                                <label class="block">
+                                    <span class="font-medium text-slate-600 dark:text-navy-100">Max Tickets</span>
+                                    <input class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                                        placeholder="Maximum concurrent tickets" type="number" min="1" max="999" name="max_tickets" value="{{ old('max_tickets', $agentInfo->max_tickets ?? '') }}" />
+                                </label>
+                                <div>
+                                    <span class="font-medium text-slate-600 dark:text-navy-100">Departments</span>
+                                    <div class="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                                        @foreach($departments as $dept)
+                                            <label class="inline-flex items-center space-x-2">
+                                                <input type="checkbox" name="departments[]" value="{{ $dept->id }}"
+                                                    {{ in_array($dept->id, old('departments', $agentDepartments ?? [])) ? 'checked' : '' }}
+                                                    class="form-checkbox is-outline size-5 rounded-full border-slate-400/70 before:bg-primary checked:border-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:before:bg-accent dark:checked:border-accent dark:hover:border-accent dark:focus:border-accent" />
+                                                <span class="text-sm text-slate-600 dark:text-navy-200">{{ $dept->name }}@if(!$dept->status) <span class="text-xs text-slate-400">(Inactive)</span>@endif</span>
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                    @error('departments')
+                                        <span class="text-tiny-plus text-error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </template>
 
                         <div class="flex justify-end space-x-2 pt-4">
                             <a href="{{ route('users/index') }}"

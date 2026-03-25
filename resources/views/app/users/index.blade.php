@@ -102,7 +102,7 @@
                                     class="form-select rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
                                     <option value="">All Roles</option>
                                     <option value="admin" {{ request('role') === 'admin' ? 'selected' : '' }}>Admin</option>
-                                    <option value="manager" {{ request('role') === 'manager' ? 'selected' : '' }}>Manager</option>
+                                    <option value="agent" {{ request('role') === 'agent' ? 'selected' : '' }}>Agent</option>
                                     <option value="customer" {{ request('role') === 'customer' ? 'selected' : '' }}>Customer</option>
                                 </select>
                             </label>
@@ -184,7 +184,7 @@
                                             @php
                                                 $roleBg = match($user->role) {
                                                     'admin' => 'bg-primary/10 text-primary dark:bg-accent-light/15 dark:text-accent-light',
-                                                    'manager' => 'bg-warning/10 text-warning dark:bg-warning/15',
+                                                    'agent' => 'bg-warning/10 text-warning dark:bg-warning/15',
                                                     default => 'bg-info/10 text-info dark:bg-info/15',
                                                 };
                                             @endphp

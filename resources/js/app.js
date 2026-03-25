@@ -68,6 +68,9 @@ import Swal from "sweetalert2";
 // Import Fortawesome icons
 import "@fortawesome/fontawesome-free/css/all.css";
 
+// Realtime Client (multi-driver: polling, Pusher, Ably)
+import "./realtime";
+
 // Helper Functions
 import * as helpers from "./utils/helpers";
 
@@ -83,6 +86,7 @@ import breakpoints from "./utils/breakpoints";
 // Alpine Components
 import usePopper from "./components/usePopper";
 import accordionItem from "./components/accordionItem";
+import searchableSelect from "./components/searchableSelect";
 
 // Alpine Directives
 import tooltip from "./directives/tooltip";
@@ -132,3 +136,4 @@ Alpine.store("global", store());
 
 Alpine.data("usePopper", usePopper);
 Alpine.data("accordionItem", accordionItem);
+Alpine.data("searchableSelect", searchableSelect);

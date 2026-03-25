@@ -64,7 +64,15 @@ class AuthController extends Controller
 
         ActivityLogService::log('LOGIN', $user);
 
-        return redirect()->route('index');
+        if ($user->role === 'customer') {
+            return redirect()->route('customer.dashboard');
+        }
+
+        if ($user->role === 'admin') {
+            return redirect()->route('dashboard');
+        }
+
+        return redirect()->route('tickets/dashboard');
     }
 
     protected function sendLoginAlert(User $user, Request $request): void
@@ -211,7 +219,12 @@ class AuthController extends Controller
                 \Auth::login($user);
                 $this->sendLoginAlert($user, $request);
                 ActivityLogService::log('LOGIN', $user);
-                return redirect()->route('index');
+                $destination = match ($user->role) {
+                    'customer' => 'customer.dashboard',
+                    'admin' => 'dashboard',
+                    default => 'tickets/dashboard',
+                };
+                return redirect()->route($destination);
             }
 
             return back()->withErrors(['code' => 'Invalid recovery code.']);
@@ -244,7 +257,12 @@ class AuthController extends Controller
         \Auth::login($user);
         $this->sendLoginAlert($user, $request);
         ActivityLogService::log('LOGIN', $user);
-        return redirect()->route('index');
+        $destination = match ($user->role) {
+            'customer' => 'customer.dashboard',
+            'admin' => 'dashboard',
+            default => 'tickets/dashboard',
+        };
+        return redirect()->route($destination);
     }
 
     public function resendTwoFactorCode(Request $request)
@@ -334,7 +352,7 @@ class AuthController extends Controller
 
         auth()->login($user);
 
-        return redirect()->route('index');
+        return redirect()->route('customer.dashboard');
     }
 
     public function logout()

@@ -699,16 +699,6 @@ class SidebarPanel
                         'route_name' => 'users/create'
                     ],
                 ],
-                [
-                    'customers_all' => [
-                        'title' => 'All Customers',
-                        'route_name' => 'users/customers'
-                    ],
-                    'customers_create' => [
-                        'title' => 'Add New Customer',
-                        'route_name' => 'users/customers-create'
-                    ],
-                ],
             ]
         ];
     }
@@ -749,6 +739,24 @@ class SidebarPanel
                     ],
                 ],
                 [
+                    'message_alerts' => [
+                        'title' => 'Message Alerts',
+                        'route_name' => 'config/message-alerts'
+                    ],
+                ],
+                [
+                    'help_page' => [
+                        'title' => 'Help Page',
+                        'route_name' => 'config/help-page'
+                    ],
+                ],
+                [
+                    'realtime' => [
+                        'title' => 'Realtime',
+                        'route_name' => 'config/realtime'
+                    ],
+                ],
+                [
                     'audit_logs' => [
                         'title' => 'Audit Logs',
                         'route_name' => 'config/audit'
@@ -758,7 +766,83 @@ class SidebarPanel
         ];
     }
 
+    public static function tickets()
+    {
+        return [
+            'title' => 'Tickets',
+            'items' => [
+                [
+                    'tickets_dashboard' => [
+                        'title' => 'Dashboard',
+                        'route_name' => 'tickets/dashboard'
+                    ],
+                ],
+                [
+                    'tickets_all' => [
+                        'title' => 'All Tickets',
+                        'route_name' => 'tickets/index'
+                    ],
+                    'tickets_create' => [
+                        'title' => 'Create Ticket',
+                        'route_name' => 'tickets/create'
+                    ],
+                ],
+                [
+                    'tickets_reports' => [
+                        'title' => 'Reports',
+                        'route_name' => 'tickets/reports'
+                    ],
+                ],
+                [
+                    'tickets_settings_general' => [
+                        'title' => 'General Settings',
+                        'route_name' => 'tickets/settings-general'
+                    ],
+                    'tickets_settings_categories' => [
+                        'title' => 'Categories',
+                        'route_name' => 'tickets/settings-categories'
+                    ],
+                    'tickets_settings_statuses' => [
+                        'title' => 'Statuses',
+                        'route_name' => 'tickets/settings-statuses'
+                    ],
+                    'tickets_settings_priorities' => [
+                        'title' => 'Priorities',
+                        'route_name' => 'tickets/settings-priorities'
+                    ],
+                    'tickets_settings_tags' => [
+                        'title' => 'Tags',
+                        'route_name' => 'tickets/settings-tags'
+                    ],
+                    'tickets_settings_agents' => [
+                        'title' => 'Agents',
+                        'route_name' => 'tickets/settings-agents'
+                    ],
+                    'tickets_settings_canned_responses' => [
+                        'title' => 'Canned Responses',
+                        'route_name' => 'tickets/settings-canned-responses'
+                    ],
+                ],
+            ]
+        ];
+    }
+
+    public static function overview()
+    {
+        return [
+            'title' => 'Overview',
+            'items' => [
+                [
+                    'dashboard' => [
+                        'title'      => 'Admin Dashboard',
+                        'route_name' => 'dashboard',
+                    ],
+                ],
+            ],
+        ];
+    }
+
     public static function all(){
-        return [self::dashboards(),self::apps(), self::layouts(), self::forms(), self::components(), self::elements(), self::users(), self::configuration()];
+        return [self::overview(), self::users(), self::tickets(), self::configuration()];
     }
 }
